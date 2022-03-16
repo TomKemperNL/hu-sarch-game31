@@ -5,7 +5,7 @@ import java.util.*;
 public class Deelname
 {
 	private Speler speler;
-	private Vector kaarten;
+	private Vector<Kaart> kaarten;
 	private int eindScore;	
 	private int place;
 	private Kaart selectedKaart;
@@ -16,7 +16,7 @@ public class Deelname
 		this.speler.setDeelname(this);
 	}
 
-	public void setKaarten(Vector kaarten)
+	public void setKaarten(Vector<Kaart> kaarten)
 	{
 		this.kaarten = kaarten;
 	}
@@ -40,7 +40,7 @@ public class Deelname
 		}
 	}
 
-	public Vector getKaarten()
+	public Vector<Kaart> getKaarten()
 	{
 		return kaarten;
 	}
@@ -68,7 +68,7 @@ public class Deelname
 		catch (NullPointerException e) { System.out.println("vector nog niet gevuld!"); }
 	}
 
-	public void replaceAll(Vector kaarten)
+	public void replaceAll(Vector<Kaart> kaarten)
 	{
 		this.kaarten = kaarten;
 	}

@@ -4,7 +4,7 @@ import java.util.*;
 
 public class KaartSpel
 {
-	private Vector kaarten = new Vector();
+	private Vector<Kaart> kaarten = new Vector<Kaart>();
 	private KaartStapel ks;
 	private Kaart k;
 
@@ -81,7 +81,7 @@ public class KaartSpel
 	}
 
 
-	public Vector geefKaarten()
+	public Vector<Kaart> geefKaarten()
 	{
 		return kaarten;
 	}

@@ -6,17 +6,17 @@ public class SpelRonde
 {
 	private static int laatsteNr = 0;
 	private int rondeNr;
-	private Vector deelnemers = new Vector();
-	private Vector totaalKaarten = new Vector();
+	private Vector<Deelname> deelnemers = new Vector<>();
+	private Vector<Kaart> totaalKaarten = new Vector<>();
 	private int beurtenTeGaan = -1;
 	private Tafel tafel;
 	private Deelname activeDeelname;
-	private Vector spelers;
+	private Vector<Speler> spelers;
 	private Speler speler;
 	private Spel spel;
 	private KaartStapel ks;
 
-	public SpelRonde(Spel spel, KaartStapel ks, Tafel tafel, Vector spelers)
+	public SpelRonde(Spel spel, KaartStapel ks, Tafel tafel, Vector<Speler> spelers)
 	{
 		rondeNr = laatsteNr++;
 		this.spel = spel;
@@ -27,7 +27,7 @@ public class SpelRonde
 		int counter = 0;
 		for (Iterator i = spelers.iterator(); i.hasNext();) {
 			activeDeelname = new Deelname((Speler) i.next());
-			Vector persoonKaarten = new Vector();
+			Vector<Kaart> persoonKaarten = new Vector<Kaart>();
 			persoonKaarten.add(totaalKaarten.elementAt(counter++));
 			persoonKaarten.add(totaalKaarten.elementAt(counter++));
 			persoonKaarten.add(totaalKaarten.elementAt(counter++));
@@ -35,7 +35,7 @@ public class SpelRonde
 			activeDeelname.setKaarten(persoonKaarten);
 			deelnemers.add(activeDeelname);
 		}
-		Vector tafelKaarten = new Vector();
+		Vector<Kaart> tafelKaarten = new Vector<>();
 		tafelKaarten.add(totaalKaarten.elementAt(counter++));
 		tafelKaarten.add(totaalKaarten.elementAt(counter++));
 		tafelKaarten.add(totaalKaarten.elementAt(counter++));

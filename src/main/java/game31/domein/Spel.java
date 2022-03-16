@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 public class Spel
 {
 	private Frame 	mf;
-	private Vector 		spelRondes			= new Vector();
+	private Vector<SpelRonde> 		spelRondes			= new Vector();
 	private int 		beginFiches;
 	private Speler		gewonnenSpeler;
-	private Vector 		spelers				= new Vector();
-	private Vector		deelnemendeSpelers	= new Vector();
+	private Vector<Speler> 		spelers				= new Vector();
+	private Vector<Speler>		deelnemendeSpelers	= new Vector();
 	private	KaartStapel	ks					= new KaartStapel("Eenendertigen");
 	private	Tafel 		tafel				= new Tafel();
 	private Pot 		pot					= new Pot();

@@ -5,9 +5,9 @@ import java.util.*;
 public class KaartStapel
 {
    private KaartSpel kaartSpel;
-   private Vector kaarten;
-   private Vector oorspronkelijkeKaarten = new Vector();
-   private Vector geschuddeKaarten = new Vector();
+   private Vector<Kaart> kaarten;
+   private Vector<Kaart> oorspronkelijkeKaarten = new Vector<>();
+   private Vector<Kaart> geschuddeKaarten = new Vector<>();
    private String spelType;
    private int card;
 
@@ -21,7 +21,7 @@ public class KaartStapel
       }
    }
 
-   public Vector geefKaartenGeschud(int aantalDeelnemers)
+   public Vector<Kaart> geefKaartenGeschud(int aantalDeelnemers)
    {
       int number = kaarten.size();
       geschuddeKaarten.removeAllElements();
@@ -43,7 +43,7 @@ public class KaartStapel
       return spelType;
    }
 
-   public Vector getKaarten() {
+   public Vector<Kaart> getKaarten() {
 	   return kaarten;
    }
 }

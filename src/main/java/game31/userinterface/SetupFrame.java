@@ -25,8 +25,8 @@ import javax.swing.JComboBox;
 */
 public class SetupFrame extends javax.swing.JFrame {
 
-	private JComboBox aantalFicesCombo;
-	private JComboBox aantalSpelersCombo;
+	private JComboBox<String> aantalFicesCombo;
+	private JComboBox<String> aantalSpelersCombo;
 	private JLabel okLabel;
 	private JLabel okBG;
 	private JButton okButton;

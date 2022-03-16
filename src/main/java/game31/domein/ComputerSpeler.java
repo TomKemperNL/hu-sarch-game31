@@ -7,7 +7,7 @@ public class ComputerSpeler extends Speler{
 	private double[][][] kaartenTabel;
 	private Kaart[] kaartenIndex;
 
-	private Vector alleKaarten;
+	private Vector<Kaart> alleKaarten;
 
 	private Spel spel;
 	private int schuifCounter = 0;
@@ -25,7 +25,7 @@ public class ComputerSpeler extends Speler{
 	{
 		kaartenIndex = new Kaart[32];
 
-		Vector kaarten = alleKaarten;
+		Vector<Kaart> kaarten = alleKaarten;
 
 		//kaarten ophalen en in een array plaatsen
 		int index = 0;
@@ -86,8 +86,8 @@ public class ComputerSpeler extends Speler{
 	//de computerspeler krijgt de beurt
 	public void aanDeBeurt()
 	{
-		Vector opTafel = tafel.getKaarten();
-		Vector inHand  = deelname.getKaarten();
+		Vector<Kaart> opTafel = tafel.getKaarten();
+		Vector<Kaart> inHand  = deelname.getKaarten();
 
 		double puntenOpTafel = zoekPunten(opTafel);
 		double puntenInHand = zoekPunten(inHand);
@@ -132,7 +132,7 @@ public class ComputerSpeler extends Speler{
 				spel.doorSchuiven();
 			}
 		}
-		Vector handkaartjes = deelname.getKaarten();
+		Vector<Kaart> handkaartjes = deelname.getKaarten();
 		for(int i=0;i<3;i++)
 		{
 			Kaart k = (Kaart)handkaartjes.elementAt(i);

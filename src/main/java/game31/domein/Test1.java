@@ -7,7 +7,7 @@ public class Test1 {
 	private static double[][][] kaartenTabel;
 	private static Kaart[] kaartenIndex;
 	
-	private static Vector alleKaarten;
+	private static Vector<Kaart> alleKaarten;
 	
 	
 	public static void main(String[] args)
@@ -35,7 +35,7 @@ public class Test1 {
 	{
 		Kaart[] kaartenIndex = new Kaart[32];
 		
-		Vector kaarten = alleKaarten;
+		Vector<Kaart> kaarten = alleKaarten;
 		
 		//kaarten ophalen en in een array plaatsen
 		int index = 0;

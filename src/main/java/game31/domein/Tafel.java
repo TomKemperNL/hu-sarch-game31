@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Tafel
 {
-	private Vector kaarten;
+	private Vector<Kaart> kaarten;
 	private Kaart selectedKaart;
 	private int place;
 
@@ -43,7 +43,7 @@ public class Tafel
 		}
 	}
 
-	public Vector getKaarten()
+	public Vector<Kaart> getKaarten()
 	{
 		return kaarten;
 	}

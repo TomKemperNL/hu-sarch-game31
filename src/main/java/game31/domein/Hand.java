@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class Hand 
 {
-	private Vector kaarten;
+	private Vector<Kaart> kaarten;
 	public Kaart theKaart;
 	
 	public Hand() 
