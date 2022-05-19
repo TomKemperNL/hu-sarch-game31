@@ -196,7 +196,7 @@ public class setupSpelers extends javax.swing.JFrame {
 				}
 			});
 	
-			okButtonBG.setIcon(new ImageIcon(getClass().getClassLoader().getResource("game31/userInterface/images/transparant.png")));
+			okButtonBG.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
 			okButtonBG.setPreferredSize(new java.awt.Dimension(41,13));
 			okButton.add(okButtonBG);
 	
@@ -205,24 +205,24 @@ public class setupSpelers extends javax.swing.JFrame {
 			okLabel.setBounds(new java.awt.Rectangle(20,0,17,16));
 			okButtonBG.add(okLabel);
 	
-			transparantVlak1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("game31/userInterface/images/transparant.png")));
+			transparantVlak1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
 			transparantVlak1.setPreferredSize(new java.awt.Dimension(361,31));
 			transparantVlak1.setBounds(new java.awt.Rectangle(16,17,361,31));
 			mainPanel.add(transparantVlak1);
 	
-			transparantVlak2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("game31/userInterface/images/transparant.png")));
+			transparantVlak2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
 			transparantVlak2.setPreferredSize(new java.awt.Dimension(339,63));
 			transparantVlak2.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			transparantVlak2.setBounds(new java.awt.Rectangle(25,59,339,63));
 			mainPanel.add(transparantVlak2);
 	
-			transparantVlak3.setIcon(new ImageIcon(getClass().getClassLoader().getResource("game31/userInterface/images/transparant.png")));
+			transparantVlak3.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
 			transparantVlak3.setPreferredSize(new java.awt.Dimension(337,111));
 			transparantVlak3.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			transparantVlak3.setBounds(new java.awt.Rectangle(26,134,337,111));
 			mainPanel.add(transparantVlak3);
 	
-			achtergrondAfbeelding.setIcon(new ImageIcon(getClass().getClassLoader().getResource("game31/userInterface/images/spelerSetupBackground.jpg")));
+			achtergrondAfbeelding.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/spelerSetupBackground.jpg")));
 			achtergrondAfbeelding.setPreferredSize(new java.awt.Dimension(400,300));
 			achtergrondAfbeelding.setBounds(new java.awt.Rectangle(0,0,400,300));
 			this.getContentPane().add(achtergrondAfbeelding);

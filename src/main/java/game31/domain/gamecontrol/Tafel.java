@@ -1,18 +1,20 @@
-package game31.domein;
+package game31.domain.gamecontrol;
+
+import game31.domain.carddeck.facade.KaartDTO;
 
 import java.util.*;
 
 public class Tafel
 {
-	private Vector kaarten;
-	private Kaart selectedKaart;
+	private Vector<KaartDTO> kaarten;
+	private KaartDTO selectedKaart;
 	private int place;
 
 	public Tafel()
 	{
 	}
 
-	public void setKaarten(Vector kaarten)
+	public void setKaarten(Vector<KaartDTO> kaarten)
 	{
 		this.kaarten = kaarten;
 	}
@@ -20,20 +22,20 @@ public class Tafel
 	public void selecteerKaart(int index)
 	{
 		try {
-			selectedKaart = (Kaart) kaarten.elementAt(index);
+			selectedKaart = kaarten.elementAt(index);
 		}
 		catch (NullPointerException e) { System.out.println("vector nog niet gevuld!"); }
 	}
 
-	public Kaart getSelected()
+	public KaartDTO getSelected()
 	{
 		return selectedKaart;
 	}
 
-	public void replaceFor(Kaart k1, Kaart k2)
+	public void replaceFor(KaartDTO k1, KaartDTO k2)
 	{
-		for (Iterator i = kaarten.iterator(); i.hasNext();) {
-			Kaart k = (Kaart) i.next();
+		for (Iterator<KaartDTO> i = kaarten.iterator(); i.hasNext();) {
+			KaartDTO k = i.next();
 			if (k.equals(k1)) {
 				place = kaarten.indexOf(k);
 				kaarten.removeElementAt(place);
@@ -43,11 +45,11 @@ public class Tafel
 		}
 	}
 
-	public Vector getKaarten()
+	public Vector<KaartDTO> getKaarten()
 	{
 		return kaarten;
 	}
-	public void replaceAll(Vector kaarten)
+	public void replaceAll(Vector<KaartDTO> kaarten)
 	{
 		this.kaarten = kaarten;
 	}

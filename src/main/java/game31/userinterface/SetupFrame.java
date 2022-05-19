@@ -125,7 +125,7 @@ public class SetupFrame extends javax.swing.JFrame {
 			instellingenLabel.setBounds(new java.awt.Rectangle(8,8,337,20));
 			instellingen.add(instellingenLabel);
 	
-			titelPicture.setIcon(new ImageIcon(getClass().getClassLoader().getResource("game31/userInterface/images/setupInstellingenTitelPic.png")));
+			titelPicture.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/setupInstellingenTitelPic.png")));
 			titelPicture.setIconTextGap(0);
 			titelPicture.setPreferredSize(new java.awt.Dimension(354,35));
 			titelPicture.setAlignmentY(0.0f);
@@ -189,7 +189,7 @@ public class SetupFrame extends javax.swing.JFrame {
 			metAflegstokcheck.setBounds(new java.awt.Rectangle(306,40,20,20));
 			extraInstellingenPanel.add(metAflegstokcheck);
 	
-			transparantBG.setIcon(new ImageIcon(getClass().getClassLoader().getResource("game31/userInterface/images/transparant.png")));
+			transparantBG.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
 			transparantBG.setPreferredSize(new java.awt.Dimension(355,225));
 			transparantBG.setAlignmentY(0.0f);
 			transparantBG.setBounds(new java.awt.Rectangle(10,29,355,225));
@@ -206,7 +206,7 @@ public class SetupFrame extends javax.swing.JFrame {
 				}
 			});
 	
-			okBG.setIcon(new ImageIcon(getClass().getClassLoader().getResource("game31/userInterface/images/transparant.png")));
+			okBG.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
 			okButton.add(okBG);
 	
 			okLabel.setText("OK");
@@ -214,7 +214,7 @@ public class SetupFrame extends javax.swing.JFrame {
 			okLabel.setBounds(new java.awt.Rectangle(19,-1,22,18));
 			okBG.add(okLabel);
 	
-			backgroundPicture.setIcon(new ImageIcon(getClass().getClassLoader().getResource("game31/userInterface/images/setupBackground.jpg")));
+			backgroundPicture.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/setupBackground.jpg")));
 			backgroundPicture.setPreferredSize(new java.awt.Dimension(400,300));
 			backgroundPicture.setBounds(new java.awt.Rectangle(0,0,400,300));
 			this.getContentPane().add(backgroundPicture);

@@ -1,5 +1,8 @@
-package game31.domein;
+package game31.domain.gamecontrol;
 
+import game31.domain.carddeck.facade.CardDeckServices;
+import game31.domain.carddeck.facade.KaartDTO;
+import game31.domain.players.facade.PlayersService;
 import game31.userinterface.MainFrame;
 import game31.userinterface.ScoreOverzichtFrame;
 
@@ -10,43 +13,46 @@ import javax.swing.JOptionPane;
 
 public class Spel
 {
-	private Frame 	mf;
-	private Vector 		spelRondes			= new Vector();
-	private int 		beginFiches;
-	private Speler		gewonnenSpeler;
-	private Vector 		spelers				= new Vector();
-	private Vector		deelnemendeSpelers	= new Vector();
-	private	KaartStapel	ks					= new KaartStapel("Eenendertigen");
-	private	Tafel 		tafel				= new Tafel();
-	private Pot 		pot					= new Pot();
+	private String spelNaam = "Eenendertigen";
+	private Frame mf;
+	private Vector<SpelRonde> spelRondes = new Vector<SpelRonde>();
+	private int	gewonnenSpeler;
+	private TreeSet<Integer> spelerIds = new TreeSet<Integer>();
+	private TreeSet<Integer> deelnemendeSpelerIds = new TreeSet<Integer>();
+	private	Tafel tafel = new Tafel();
 
+	public Spel() {
+	}
 
-	public Spel(Vector compSpeler, Vector humanSpelerData, int fiches, Frame mf)
+	public Spel(Vector<?> compSpeler, Vector<?> humanSpelerData, int fiches, Frame mf)
 	{
 		this.mf = mf;
-		beginFiches = fiches;
 		if (!humanSpelerData.isEmpty()) {
-			for (Iterator i = humanSpelerData.iterator(); i.hasNext();) {
-				Vector data = (Vector) i.next();
-				for (Iterator j = data.iterator(); j.hasNext();) {
-					spelers.add(new HumanSpeler((String) j.next(), (Calendar) j.next(), fiches, pot, tafel));
+			for (Iterator<?> i = humanSpelerData.iterator(); i.hasNext();) {
+				Vector<?> data = (Vector<?>) i.next();
+				for (Iterator<?> j = data.iterator(); j.hasNext();) {
+					spelerIds.add(PlayersService.getInstance().createHumanSpeler((String) j.next(), (Calendar) j.next(), fiches));
 				}
 			}
 		}
-
 		if (!compSpeler.isEmpty()) {
-			for (Iterator i = compSpeler.iterator(); i.hasNext();) {
-				spelers.add(new ComputerSpeler((String) i.next(), fiches, tafel, pot, ks, this));
+			for (Iterator<?> i = compSpeler.iterator(); i.hasNext();) {
+				spelerIds.add(PlayersService.getInstance().createComputerSpeler((String) i.next(), fiches));
 			}
 		}
+		deelnemendeSpelerIds = spelerIds;
 
-		deelnemendeSpelers = spelers;
-		SpelRonde sr = new SpelRonde(this, ks, tafel, spelers);
-		sr.setSpeler((Speler) spelers.firstElement());
+		CardDeckServices.createCardDeckServices(this);
+		SpelRonde sr = new SpelRonde(this, tafel, spelerIds);
+		sr.setSpeler(spelerIds.first());
 		spelRondes.add(sr);
 	}
 
-	public void ruil1Kaart(Kaart k1, Kaart k2)
+	public String getNaam() {
+		return spelNaam;
+	}
+	
+	public void ruil1Kaart(KaartDTO k1, KaartDTO k2)
 	{
 		SpelRonde spelronde = (SpelRonde) spelRondes.lastElement();
 		spelronde.getActiveDeelname().replaceFor(k1, k2);
@@ -69,8 +75,8 @@ public class Spel
 	public void ruil3Kaart()
 	{
 		SpelRonde spelronde = (SpelRonde) spelRondes.lastElement();
-		Vector tafel1 = tafel.getKaarten();
-		Vector dn = spelronde.getActiveDeelname().getKaarten();
+		Vector<KaartDTO> tafel1 = tafel.getKaarten();
+		Vector<KaartDTO> dn = spelronde.getActiveDeelname().getKaarten();
 		spelronde.getActiveDeelname().replaceAll(tafel1);
 		tafel.replaceAll(dn);
 		if (controleerWaarde(getHuidigeSpelRonde().getActiveDeelname()) == 31) {
@@ -83,22 +89,22 @@ public class Spel
 
 	private void controleerPunten()
 	{
-		Vector v = new Vector();
-		for (Iterator i = deelnemendeSpelers.iterator(); i.hasNext();) {
-			Speler s2 = (Speler) i.next();
-			if (s2.geefFiches() > 0) {
-				v.add(s2);
+		TreeSet<Integer> overblijvendeSpelerIds	= new TreeSet<Integer>();
+		for (int spelerId : deelnemendeSpelerIds) {
+			int aantalFiches = PlayersService.getInstance().geefSpelerDetails(spelerId).geefFiches();
+			if (aantalFiches > 0) {
+				overblijvendeSpelerIds.add(spelerId);
 			}
 		}
-		if(v.size() == 1) {
-			Speler winnaar = (Speler)v.get(0);
-			JOptionPane.showMessageDialog(mf, "Speler " + winnaar.geefNaam() + " heeft gewonnen!", "Einde Spel!", JOptionPane.WARNING_MESSAGE);
+		if(overblijvendeSpelerIds.size() == 1) {
+			String winnaar = PlayersService.getInstance().geefSpelerDetails(overblijvendeSpelerIds.first()).geefNaam();
+			JOptionPane.showMessageDialog(mf, "Speler " + winnaar + " heeft gewonnen!", "Einde Spel!", JOptionPane.WARNING_MESSAGE);
 			MainFrame frame = (MainFrame) mf;
 			frame.dispose();
 			new MainFrame(1);
 			new ScoreOverzichtFrame(spelRondes);
 		}
-		deelnemendeSpelers = v;
+		deelnemendeSpelerIds = overblijvendeSpelerIds;
 	}
 
 	public void volgendeRonde()
@@ -133,29 +139,29 @@ public class Spel
 	private void nieuweSpelRonde() {
 		controleerPunten();
 		SpelRonde sp = (SpelRonde)spelRondes.lastElement();
-		Vector deelnemers = sp.geefDeelnames();
+		Vector<?> deelnemers = sp.geefDeelnames();
 		// eindScore per deelname wordt geset
-		for (Iterator i = deelnemers.iterator(); i.hasNext();) {
+		for (Iterator<?> i = deelnemers.iterator(); i.hasNext();) {
 			Deelname dn = (Deelname) i.next();
 			dn.geefEindScore();
 		}
-		spelRondes.add(new SpelRonde(this, ks, tafel, deelnemendeSpelers));
+		spelRondes.add(new SpelRonde(this, tafel, deelnemendeSpelerIds));
 		// winnende speler van afgelopen ronde wordt opgehaald
 		int waarde = 0;
-		Speler s = null;
-		for (Iterator i = deelnemers.iterator(); i.hasNext();) {			
+		int spelerId = 0;
+		for (Iterator<?> i = deelnemers.iterator(); i.hasNext();) {			
 			Deelname d1 = (Deelname)i.next();
 			System.out.println(controleerWaarde(d1));
 			if (controleerWaarde(d1) > waarde) {
 				waarde = controleerWaarde(d1);
-				s = d1.getSpeler();
+				spelerId = d1.getSpeler();
 			}			
 		}
-		setGewonnenSpeler(s);		
+		setGewonnenSpeler(spelerId);		
 		getHuidigeSpelRonde().setSpeler(gewonnenSpeler);
 	}
 
-	private void setGewonnenSpeler(Speler s) {
+	private void setGewonnenSpeler(int s) {
 	  this.gewonnenSpeler = s;
     }
 
@@ -168,17 +174,17 @@ public class Spel
     	return sp;
     }
 
-    public Vector getTotalScore(){
-    	return new Vector();
+    public Vector<?> getTotalScore(){
+    	return new Vector<Object>();
     }
 
 	public int controleerWaarde(Deelname dn)
 	{
-		Vector v = dn.getKaarten();
-		Iterator i = v.iterator();
-		Kaart k1 = (Kaart) i.next();
-		Kaart k2 = (Kaart) i.next();
-		Kaart k3 = (Kaart) i.next();
+		Vector<KaartDTO> v = dn.getKaarten();
+		Iterator<KaartDTO> i = v.iterator();
+		KaartDTO k1 = i.next();
+		KaartDTO k2 = i.next();
+		KaartDTO k3 = i.next();
 		int waarde = 0;
 		if ((k1.geefSymbool().equals(k2.geefSymbool())) && (k1.geefSymbool().equals(k3.geefSymbool()))) {
 			waarde = (k1.geefWaarde() + k2.geefWaarde() + k3.geefWaarde());

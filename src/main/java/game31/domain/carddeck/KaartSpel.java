@@ -1,16 +1,14 @@
-package game31.domein;
+package game31.domain.carddeck;
 
 import java.util.*;
 
 public class KaartSpel
 {
-	private Vector kaarten = new Vector();
-	private KaartStapel ks;
+	private Vector<Kaart> kaarten = new Vector<Kaart>();
 	private Kaart k;
 
 	public KaartSpel(KaartStapel ks)
 	{
-		this.ks = ks;
 		String s = ks.geefSpelType();
 		if(s.equals("Eenendertigen")) {
 			for(int i=7; i<15; i++) {
@@ -26,7 +24,7 @@ public class KaartSpel
 					waarde = i;
 				}
 
-				k = new Kaart("game31/kaarten/d" + line +".jpg", "ruiten", line, waarde, this, ks);
+				k = new Kaart("main/resources/kaarten/d"+ line +".jpg", "ruiten", line, waarde, this, ks);
 				kaarten.add(k);
 			}
 			for(int i=7; i<15; i++) {
@@ -41,7 +39,7 @@ public class KaartSpel
 				else {
 					waarde = i;
 				}
-				k = new Kaart("game31/kaarten/h" + line +".jpg", "harten", line, waarde, this, ks);
+				k = new Kaart("main/resources/kaarten/h"+ line +".jpg", "harten", line, waarde, this, ks);
 				kaarten.add(k);
 			}
 			for(int i=7; i<15; i++) {
@@ -56,7 +54,7 @@ public class KaartSpel
 				else {
 					waarde = i;
 				}
-				k = new Kaart("game31/kaarten/k" + line +".jpg", "klaveren", line, waarde, this, ks);
+				k = new Kaart("main/resources/kaarten/k"+ line +".jpg", "klaveren", line, waarde, this, ks);
 				kaarten.add(k);
 			}
 			for(int i=7; i<15; i++) {
@@ -71,7 +69,7 @@ public class KaartSpel
 				else {
 					waarde = i;
 				}
-				k = new Kaart("game31/kaarten/s" + line +".jpg", "schoppen", line, waarde, this, ks);
+				k = new Kaart("main/resources/kaarten/s"+ line +".jpg", "schoppen", line, waarde, this, ks);
 				kaarten.add(k);
 			}
 
@@ -81,7 +79,7 @@ public class KaartSpel
 	}
 
 
-	public Vector geefKaarten()
+	public Vector<Kaart> geefKaarten()
 	{
 		return kaarten;
 	}

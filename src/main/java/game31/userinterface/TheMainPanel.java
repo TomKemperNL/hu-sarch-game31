@@ -1,11 +1,12 @@
 package game31.userinterface;
 
-import game31.domein.ComputerSpeler;
-import game31.domein.Deelname;
-import game31.domein.Kaart;
-import game31.domein.Spel;
-import game31.domein.SpelRonde;
-import game31.domein.Tafel;
+import game31.domain.carddeck.facade.KaartDTO;
+import game31.domain.gamecontrol.Deelname;
+import game31.domain.gamecontrol.Spel;
+import game31.domain.gamecontrol.SpelRonde;
+import game31.domain.gamecontrol.Tafel;
+import game31.domain.players.facade.PlayersService;
+import game31.domain.players.facade.SpelerDTO;
 
 import java.awt.Component;
 import java.util.*;
@@ -19,7 +20,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -35,7 +35,8 @@ import java.awt.FlowLayout;
 * for-profit company or business) then you should purchase
 * a license - please visit www.cloudgarden.com for details.
 */
-public class TheMainPanel extends javax.swing.JPanel {
+public class TheMainPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private JPanel scrollPanels;
 	private JButton allesWisselenButton;
 	private JButton wisselenButton;
@@ -45,9 +46,7 @@ public class TheMainPanel extends javax.swing.JPanel {
 	private JPanel deTafelPanel;
 	private JPanel mijnHandPanel;
 	private JTable spelersTable;
-	private JPopupMenu wisselenMenu;
-	private JTable eventsTable;
-	private JScrollPane playerPanel, eventsPanel;
+	private JScrollPane playerPanel;
 	private Spel hetSpel;
 	private Tafel deTafel;
 	private boolean eersteRonde = true;
@@ -188,26 +187,28 @@ public class TheMainPanel extends javax.swing.JPanel {
 	private void buildSpelersTable() {
 		scrollPanels.removeAll();		
 		//Build tableHeader
-		Vector spelersTableHeader = new Vector();
+		Vector<String> spelersTableHeader = new Vector<>();
 		spelersTableHeader.addElement("Naam");
 		spelersTableHeader.addElement("Fices");
 		
 		//Build tablecontents
-		Vector spelersTableData = new Vector();
+		Vector<Vector<String>> spelersTableData = new Vector<>();
 		if (hetSpel != null) {
 			SpelRonde huidigeRonde = hetSpel.getHuidigeSpelRonde();
-			Vector deelnemers = huidigeRonde.geefDeelnames();
-			for(Enumeration e = deelnemers.elements(); e.hasMoreElements();) {
-				Deelname d1 = (Deelname) e.nextElement();
-				Vector tabelRij = new Vector();
-				tabelRij.addElement(d1.getSpeler().geefNaam());
-				tabelRij.addElement("" + d1.getSpeler().geefFiches());
-				System.out.println(d1.getSpeler().geefFiches());
+			Vector<Deelname> deelnemers = huidigeRonde.geefDeelnames();
+			for(Deelname d1 : deelnemers) {
+				Vector<String> tabelRij = new Vector<>();
+				SpelerDTO speler = PlayersService.getInstance().geefSpelerDetails(d1.getSpeler());
+				tabelRij.addElement(speler.geefNaam());
+				tabelRij.addElement("" + speler.geefFiches());
+				System.out.println(speler.geefFiches());
 				spelersTableData.addElement(tabelRij); 
 			}
 		}
 		
 		spelersTable = new JTable(spelersTableData, spelersTableHeader){ 
+			private static final long serialVersionUID = 1L;
+
 			public Component prepareRenderer (TableCellRenderer renderer, int row, int column) { 
 				Component c = super.prepareRenderer( renderer, row, column); 
 				// 	We want renderer component to be 
@@ -259,7 +260,8 @@ public class TheMainPanel extends javax.swing.JPanel {
 		deTafelPanel.setVisible(true);
 		mijnHandPanel.setVisible(true);
 		eersteRonde = false;
-		if(!(hetSpel.getHuidigeSpelRonde().getActiveDeelname().getSpeler() instanceof ComputerSpeler)) {
+		SpelerDTO speler = PlayersService.getInstance().geefSpelerDetails(hetSpel.getHuidigeSpelRonde().getActiveDeelname().getSpeler());
+		if(speler.isHumanSpeler()) {
 			int sure = JOptionPane.showConfirmDialog(this, "Wilt u alle kaarten wisselen met die van de tafel?", "?", JOptionPane.OK_CANCEL_OPTION);
 			if(sure == 0) {
 				hetSpel.ruil3Kaart();
@@ -280,7 +282,7 @@ public class TheMainPanel extends javax.swing.JPanel {
 	
 	public void updateScherm() {
 		allesWisselenButton.setEnabled(true);
-		SpelRonde huidigeRonde = hetSpel.getHuidigeSpelRonde();
+		hetSpel.getHuidigeSpelRonde();
 		deTafelPanel.removeAll();
 		deTafelPanel.setVisible(false);
 		mijnHandPanel.removeAll();
@@ -298,17 +300,18 @@ public class TheMainPanel extends javax.swing.JPanel {
 		mijnHandPanel.repaint();
 		deTafelPanel.setVisible(true);
 		mijnHandPanel.setVisible(true);
-		if(!(hetSpel.getHuidigeSpelRonde().getActiveDeelname().getSpeler() instanceof ComputerSpeler)) {
-			JOptionPane.showMessageDialog(this, "Het is de beurt van " + hetSpel.getHuidigeSpelRonde().getActiveDeelname().getSpeler().geefNaam() + ".", "Volgende speler", JOptionPane.WARNING_MESSAGE );
+		SpelerDTO speler = PlayersService.getInstance().geefSpelerDetails(hetSpel.getHuidigeSpelRonde().getActiveDeelname().getSpeler());
+		if(speler.isHumanSpeler()) {
+			JOptionPane.showMessageDialog(this, "Het is de beurt van " + speler.geefNaam() + ".", "Volgende speler", JOptionPane.WARNING_MESSAGE );
 		}
 	}
 	
 	public void bouwDeTafel() {
 		if(!eersteRonde) {
-			Vector deKaarten = deTafel.getKaarten();
-			Kaart kaart1 = (Kaart) deKaarten.get(0);
-			Kaart kaart2 = (Kaart) deKaarten.get(1);
-			Kaart kaart3 = (Kaart) deKaarten.get(2);
+			Vector<KaartDTO> deKaarten = deTafel.getKaarten();
+			KaartDTO kaart1 = deKaarten.get(0);
+			KaartDTO kaart2 = deKaarten.get(1);
+			KaartDTO kaart3 = deKaarten.get(2);
 			
 			tafelKaart1Button = new JButton();
 			tafelKaart2Button = new JButton();
@@ -354,9 +357,9 @@ public class TheMainPanel extends javax.swing.JPanel {
 					tK3ActionPerformed(evt);
 				}
 			});
-			tafelKaart1Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("game31/kaarten/blank.jpg"))));
-			tafelKaart2Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("game31/kaarten/blank.jpg"))));
-			tafelKaart3Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("game31/kaarten/blank.jpg"))));
+			tafelKaart1Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("main/resources/kaarten/blank.jpg"))));
+			tafelKaart2Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("main/resources/kaarten/blank.jpg"))));
+			tafelKaart3Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("main/resources/kaarten/blank.jpg"))));
 			tafelKaart1Button.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			tafelKaart2Button.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			tafelKaart3Button.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
@@ -388,10 +391,10 @@ public class TheMainPanel extends javax.swing.JPanel {
 		//Haal de huidige deelnemer zijn kaarten op.
 		SpelRonde huidigeRonde = hetSpel.getHuidigeSpelRonde();
 		Deelname huidigeDeelname = huidigeRonde.getActiveDeelname();
-		Vector deKaarten = huidigeDeelname.getKaarten();
-		Kaart kaart1 = (Kaart) deKaarten.get(0);
-		Kaart kaart2 = (Kaart) deKaarten.get(1);
-		Kaart kaart3 = (Kaart) deKaarten.get(2);
+		Vector<KaartDTO> deKaarten = huidigeDeelname.getKaarten();
+		KaartDTO kaart1 = deKaarten.get(0);
+		KaartDTO kaart2 = deKaarten.get(1);
+		KaartDTO kaart3 = deKaarten.get(2);
 		handKaart1Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource(kaart1.geefGifAdr()))));
 		handKaart2Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource(kaart2.geefGifAdr()))));
 		handKaart3Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource(kaart3.geefGifAdr()))));
@@ -429,8 +432,8 @@ public class TheMainPanel extends javax.swing.JPanel {
 			
 			SpelRonde huidigeRonde = hetSpel.getHuidigeSpelRonde();
 			Deelname huidigeDeelname = huidigeRonde.getActiveDeelname();
-			Vector deKaarten = huidigeDeelname.getKaarten();
-			Kaart deHandKaart = (Kaart) deKaarten.get(handKaart);
+			Vector<KaartDTO> deKaarten = huidigeDeelname.getKaarten();
+			KaartDTO deHandKaart = deKaarten.get(handKaart);
 			
 			int tafelKaart = 0;
 			if(tk1Selected) {
@@ -444,8 +447,8 @@ public class TheMainPanel extends javax.swing.JPanel {
 			}
 			tafelKaart--;
 			
-			Vector deTafelKaarten = deTafel.getKaarten();
-			Kaart deTafelKaart = (Kaart) deTafelKaarten.get(tafelKaart);
+			Vector<KaartDTO> deTafelKaarten = deTafel.getKaarten();
+			KaartDTO deTafelKaart = deTafelKaarten.get(tafelKaart);
 			hetSpel.ruil1Kaart(deHandKaart, deTafelKaart);
 			
 		}
