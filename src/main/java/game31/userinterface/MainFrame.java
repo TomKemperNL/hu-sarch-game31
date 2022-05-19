@@ -105,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame {
 	
 			bgPictureLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			bgPictureLabel.setHorizontalTextPosition(SwingConstants.LEFT);
-			bgPictureLabel.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/mainFrameBackground.jpg")));
+			bgPictureLabel.setIcon(new ImageIcon(getClass().getResource("/images/mainFrameBackground.jpg")));
 			bgPictureLabel.setIconTextGap(0);
 			bgPictureLabel.setVerticalAlignment(SwingConstants.TOP);
 			bgPictureLabel.setVerticalTextPosition(SwingConstants.TOP);
@@ -120,37 +120,37 @@ public class MainFrame extends javax.swing.JFrame {
 			bgPictureLabel.setIgnoreRepaint(true);
 			this.getContentPane().add(bgPictureLabel);
 	
-			transparantVlak1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
+			transparantVlak1.setIcon(new ImageIcon(getClass().getResource("/images/transparant.png")));
 			transparantVlak1.setPreferredSize(new java.awt.Dimension(197,229));
 			transparantVlak1.setBounds(new java.awt.Rectangle(0,0,197,229));
 			bgPictureLabel.add(transparantVlak1);
 	
-			transparantVlak2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
+			transparantVlak2.setIcon(new ImageIcon(getClass().getResource("/images/transparant.png")));
 			transparantVlak2.setPreferredSize(new java.awt.Dimension(197,299));
 			transparantVlak2.setBounds(new java.awt.Rectangle(0,229,197,299));
 			bgPictureLabel.add(transparantVlak2);
 	
-			transparantVlak3.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
+			transparantVlak3.setIcon(new ImageIcon(getClass().getResource("/images/transparant.png")));
 			transparantVlak3.setPreferredSize(new java.awt.Dimension(464,32));
 			transparantVlak3.setBounds(new java.awt.Rectangle(216,231,464,32));
 			bgPictureLabel.add(transparantVlak3);
 	
-			transparantVlak4.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
+			transparantVlak4.setIcon(new ImageIcon(getClass().getResource("/images/transparant.png")));
 			transparantVlak4.setPreferredSize(new java.awt.Dimension(421,195));
 			transparantVlak4.setBounds(new java.awt.Rectangle(233,20,421,195));
 			bgPictureLabel.add(transparantVlak4);
 	
-			transparantVlak4_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
+			transparantVlak4_1.setIcon(new ImageIcon(getClass().getResource("/images/transparant.png")));
 			transparantVlak4_1.setPreferredSize(new java.awt.Dimension(421,195));
 			transparantVlak4_1.setBounds(new java.awt.Rectangle(233,20,421,195));
 			bgPictureLabel.add(transparantVlak4_1);
 	
-			transparantVlak5.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
+			transparantVlak5.setIcon(new ImageIcon(getClass().getResource("/images/transparant.png")));
 			transparantVlak5.setPreferredSize(new java.awt.Dimension(421,195));
 			transparantVlak5.setBounds(new java.awt.Rectangle(239,296,421,195));
 			bgPictureLabel.add(transparantVlak5);
 	
-			transparantVlak5_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("main/resources/images/transparant.png")));
+			transparantVlak5_1.setIcon(new ImageIcon(getClass().getResource("/images/transparant.png")));
 			transparantVlak5_1.setPreferredSize(new java.awt.Dimension(421,195));
 			transparantVlak5_1.setBounds(new java.awt.Rectangle(239,296,421,195));
 			bgPictureLabel.add(transparantVlak5_1);

@@ -24,7 +24,7 @@ public class KaartSpel
 					waarde = i;
 				}
 
-				k = new Kaart("main/resources/kaarten/d"+ line +".jpg", "ruiten", line, waarde, this, ks);
+				k = new Kaart("/kaarten/d"+ line +".jpg", "ruiten", line, waarde, this, ks);
 				kaarten.add(k);
 			}
 			for(int i=7; i<15; i++) {
@@ -39,7 +39,7 @@ public class KaartSpel
 				else {
 					waarde = i;
 				}
-				k = new Kaart("main/resources/kaarten/h"+ line +".jpg", "harten", line, waarde, this, ks);
+				k = new Kaart("/kaarten/h"+ line +".jpg", "harten", line, waarde, this, ks);
 				kaarten.add(k);
 			}
 			for(int i=7; i<15; i++) {
@@ -54,7 +54,7 @@ public class KaartSpel
 				else {
 					waarde = i;
 				}
-				k = new Kaart("main/resources/kaarten/k"+ line +".jpg", "klaveren", line, waarde, this, ks);
+				k = new Kaart("/kaarten/k"+ line +".jpg", "klaveren", line, waarde, this, ks);
 				kaarten.add(k);
 			}
 			for(int i=7; i<15; i++) {
@@ -69,7 +69,7 @@ public class KaartSpel
 				else {
 					waarde = i;
 				}
-				k = new Kaart("main/resources/kaarten/s"+ line +".jpg", "schoppen", line, waarde, this, ks);
+				k = new Kaart("/kaarten/s"+ line +".jpg", "schoppen", line, waarde, this, ks);
 				kaarten.add(k);
 			}
 

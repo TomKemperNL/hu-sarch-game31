@@ -331,9 +331,9 @@ public class TheMainPanel extends JPanel {
 					tK3ActionPerformed(evt);
 				}
 			});
-			tafelKaart1Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource(kaart1.geefGifAdr()))));
-			tafelKaart2Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource(kaart2.geefGifAdr()))));
-			tafelKaart3Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource(kaart3.geefGifAdr()))));
+			tafelKaart1Button.add(new JLabel(new ImageIcon(getClass().getResource(kaart1.geefGifAdr()))));
+			tafelKaart2Button.add(new JLabel(new ImageIcon(getClass().getResource(kaart2.geefGifAdr()))));
+			tafelKaart3Button.add(new JLabel(new ImageIcon(getClass().getResource(kaart3.geefGifAdr()))));
 			tafelKaart1Button.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			tafelKaart2Button.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			tafelKaart3Button.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
@@ -357,9 +357,9 @@ public class TheMainPanel extends JPanel {
 					tK3ActionPerformed(evt);
 				}
 			});
-			tafelKaart1Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("main/resources/kaarten/blank.jpg"))));
-			tafelKaart2Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("main/resources/kaarten/blank.jpg"))));
-			tafelKaart3Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("main/resources/kaarten/blank.jpg"))));
+			tafelKaart1Button.add(new JLabel(new ImageIcon(getClass().getResource("/kaarten/blank.jpg"))));
+			tafelKaart2Button.add(new JLabel(new ImageIcon(getClass().getResource("/kaarten/blank.jpg"))));
+			tafelKaart3Button.add(new JLabel(new ImageIcon(getClass().getResource("/kaarten/blank.jpg"))));
 			tafelKaart1Button.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			tafelKaart2Button.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
 			tafelKaart3Button.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
@@ -395,9 +395,9 @@ public class TheMainPanel extends JPanel {
 		KaartDTO kaart1 = deKaarten.get(0);
 		KaartDTO kaart2 = deKaarten.get(1);
 		KaartDTO kaart3 = deKaarten.get(2);
-		handKaart1Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource(kaart1.geefGifAdr()))));
-		handKaart2Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource(kaart2.geefGifAdr()))));
-		handKaart3Button.add(new JLabel(new ImageIcon(getClass().getClassLoader().getResource(kaart3.geefGifAdr()))));
+		handKaart1Button.add(new JLabel(new ImageIcon(getClass().getResource(kaart1.geefGifAdr()))));
+		handKaart2Button.add(new JLabel(new ImageIcon(getClass().getResource(kaart2.geefGifAdr()))));
+		handKaart3Button.add(new JLabel(new ImageIcon(getClass().getResource(kaart3.geefGifAdr()))));
 	}
 
 
